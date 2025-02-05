@@ -45,7 +45,7 @@ public class Main {
         mngr.getListEpics();
         System.out.println();
 
-        System.out.println("Список подкласов:");
+        System.out.println("Список подклассов:");
         mngr.getListSubtasks();
         System.out.println();
 
@@ -78,7 +78,7 @@ public class Main {
         mngr.getListEpics();
         System.out.println();
 
-        System.out.println("Список подкласов:");
+        System.out.println("Список подклассов:");
         mngr.getListSubtasks();
         System.out.println();
     }
