@@ -1,15 +1,14 @@
-import java.util.HashMap;
-
 public class Task {
     private String title;
     private String description;//описание
     private Status status;
     private int id ;
 
-    public Task(String title, String description) {
+    public Task(String title, String description,int id,Status status) {
         this.title = title;
         this.description = description;
-
+        this.id = id;
+        this.status = status;
 
 
     }
@@ -45,5 +44,16 @@ public class Task {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "\nЗадача: " + title+
+                "\nID:" + id +
+                "\nСтатус: " + status +
+                "\nОписание:" + description ;
+
+
     }
 }
