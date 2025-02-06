@@ -5,9 +5,9 @@ import java.util.HashMap;
 public class TaskManager {
     private int counter ;
 
-    private HashMap<Integer, Task> tasks;
-    private HashMap<Integer, Epic> epics;
-    private HashMap<Integer, Subtask> subtasks;
+    private final HashMap<Integer, Task> tasks;
+    private final HashMap<Integer, Epic> epics;
+    private final HashMap<Integer, Subtask> subtasks;
 
 
 
@@ -89,19 +89,26 @@ public class TaskManager {
         epics.put(epic.getId(),epic);
     }
 
-    public void updateTask (Task task) {
-        tasks.put(task.getId(), task);
-
+    public void updateTask (int id,Task task) {
+        if (tasks.containsKey(id)) {
+            tasks.put(task.getId(), task);
+        }
     }
 
-    public void updateSubtask (Subtask subtask) {
-        subtasks.put(subtask.getId(), subtask);
-        updateEpicStatus(subtask.getEpicID());
-
+    public void updateSubtask (int id, Subtask subtask) {
+        if (subtasks.containsKey(id)) {
+            if (subtasks.get(id).getEpicID() == subtask.getEpicID()) {
+                subtasks.put(subtask.getId(), subtask);
+                updateEpicStatus(subtask.getEpicID());
+            }
+        }
     }
 
-    public void updateEpic(Epic epic) {
-        epics.put(epic.getId(), epic);
+    public void updateEpic(int id,String title,String description) {
+        if (epics.containsKey(id)) {
+            epics.get(id).setTitle(title);
+            epics.get(id).setDescription(description);
+        }
     }
 
 

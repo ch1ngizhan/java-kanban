@@ -2,7 +2,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /*System.out.println("Поехали!");
+        System.out.println("Поехали!");
         TaskManager mngr = new TaskManager();
 
         mngr.createTask(new Task("Выспаться","Лечь спать в 23:00"));
@@ -47,10 +47,10 @@ public class Main {
         mngr.getListSubtasks();
         System.out.println();
 
-        mngr.updateTask(new Task("Выспаться","Лечь спать в 23:00"));
-        mngr.updateSubtask(new Subtask("Зал", "Заглянуть в зал на часик.",
+        mngr.updateTask(1,new Task("Выспаться","Лечь спать в 23:00"));
+        mngr.updateSubtask(4,new Subtask("Зал", "Заглянуть в зал на часик.",
                 3));
-        mngr.updateSubtask(new Subtask("Осознание", "Кого ты обманываешь.",
+        mngr.updateSubtask(7,new Subtask("Осознание", "Кого ты обманываешь.",
                 6));
 
 
@@ -69,17 +69,17 @@ public class Main {
         mngr.deleteEpic(6);
 
         System.out.println("Список задач:");
-        mngr.getListTask();
+        System.out.println(mngr.getListTask());
         System.out.println();
 
         System.out.println("Список эпиков:");
-        mngr.getListEpics();
+        System.out.println(mngr.getListEpics());
         System.out.println();
 
         System.out.println("Список подклассов:");
-        mngr.getListSubtasks();
+        System.out.println(mngr.getListSubtasks());
         System.out.println();
 
-        System.out.println(mngr.getByIDEpics(6).getSubtasksID());
-    }*/
+
+    }
 }
