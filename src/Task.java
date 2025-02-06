@@ -1,14 +1,13 @@
 public class Task {
-    private String title;
-    private String description;//описание
-    private Status status;
-    private int id ;
+    protected String title;
+    protected String description;//описание
+    protected Status status;
+    protected int id ;
 
-    public Task(String title, String description,int id,Status status) {
+    public Task(String title, String description) {
         this.title = title;
         this.description = description;
-        this.id = id;
-        this.status = status;
+        this.status = Status.NEW;
 
 
     }
