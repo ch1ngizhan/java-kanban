@@ -4,10 +4,10 @@ public class Task {
     protected Status status;
     protected int id ;
 
-    public Task(String title, String description) {
+    public Task(String title, String description,Status status) {
         this.title = title;
         this.description = description;
-        this.status = Status.NEW;
+        this.status = status;
 
 
     }

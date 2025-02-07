@@ -42,7 +42,7 @@ public class TaskManager {
 
 
     public void deleteAllEpics(){
-        deleteAllSubtasks();
+        subtasks.clear();
         epics.clear();
     }
 
@@ -50,7 +50,9 @@ public class TaskManager {
     public void deleteAllSubtasks(){
         for (Epic epic : epics.values()) {
             epic.deleteAllSubtaskID();
+            updateEpicStatus(epic.getId());
         }
+
         subtasks.clear();
     }
 
