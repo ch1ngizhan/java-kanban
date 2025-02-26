@@ -1,10 +1,18 @@
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import manager.HistoryManager;
+import manager.Managers;
+import manager.TaskManager;
+import model.Epic;
+import model.Status;
+import model.Subtask;
+import model.Task;
 import org.junit.Test;
-import org.junit.jupiter.params.shadow.com.univocity.parsers.tsv.TsvFormat;
+
 
 import java.util.List;
-import java.util.ArrayList;
+
 
 public class TaskTest {
 
@@ -90,8 +98,8 @@ public class TaskTest {
     @Test
     public void testTaskIdConflict (){
         TaskManager taskManager = Managers.getDefault();
-        Task task1 = new Task("Task 1", "Description 1", Status.NEW);
-        Task task2 = new Task("Task 2", "Description 2", Status.NEW);
+        Task task1 = new Task("model.Task 1", "Description 1", Status.NEW);
+        Task task2 = new Task("model.Task 2", "Description 2", Status.NEW);
 
         taskManager.createTask(task1);
         taskManager.createTask(task2);
@@ -104,7 +112,7 @@ public class TaskTest {
     public void testTaskImmutabilityWhenAdded() {
         TaskManager taskManager = Managers.getDefault();
 
-        Task task1 = new Task("Task 1", "Description 1", Status.NEW);
+        Task task1 = new Task("model.Task 1", "Description 1", Status.NEW);
         taskManager.createTask(task1);
 
         Task task2 = taskManager.getByIDTask(task1.getId());
@@ -114,7 +122,7 @@ public class TaskTest {
     }
     @Test
     public void add() {
-        Task task = new Task("Task 1", "Description 1", Status.NEW);
+        Task task = new Task("model.Task 1", "Description 1", Status.NEW);
         HistoryManager historyManager = Managers.getDefaultHistory();
         historyManager.add(task);
         final List<Task> history = historyManager.getHistory();

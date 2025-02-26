@@ -1,13 +1,18 @@
+package manager;
+
+import model.Task;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final ArrayList<Task> history ;
+    private final List<Task> history ;
 
     InMemoryHistoryManager() {
         history = new ArrayList<>();
     }
     @Override
-    public ArrayList<Task> getHistory(){
+    public List<Task> getHistory(){
         return new ArrayList<Task>(history);
     }
 
