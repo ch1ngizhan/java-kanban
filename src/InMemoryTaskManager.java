@@ -8,7 +8,7 @@ public class InMemoryTaskManager implements TaskManager {
     private final HashMap<Integer, Task> tasks;
     private final HashMap<Integer, Epic> epics;
     private final HashMap<Integer, Subtask> subtasks;
-    private final ArrayList<Task> history ;
+    HistoryManager history;
 
 
 
@@ -16,7 +16,7 @@ public class InMemoryTaskManager implements TaskManager {
         tasks = new HashMap<>();
         epics = new HashMap<>();
         subtasks = new HashMap<>();
-        history =new ArrayList<>(10);
+        history = Managers.getDefaultHistory();
         counter = 1;
     }
     private int generateId() {
@@ -66,16 +66,28 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Epic getByIDEpics(int id){
+        Epic epic = epics.get(id);
+        if (epic != null) {
+            history.add(epic);
+        }
         return epics.get(id);
     }
 
     @Override
     public Task getByIDTask(int id){
+        Task task = tasks.get(id);
+        if (task != null) {
+            history.add(task);
+        }
         return tasks.get(id);
     }
 
     @Override
     public Subtask getByIDSubtasks(int id){
+        Subtask subtask = subtasks.get(id);
+        if (subtask != null) {
+            history.add(subtask);
+        }
         return subtasks.get(id);
     }
 
@@ -197,12 +209,34 @@ public class InMemoryTaskManager implements TaskManager {
         }
 
     }
-
-
     @Override
-   public ArrayList<Task> getHistory (){
-        return new ArrayList<Task>(history);
-   }
+    public void printAllTasks() {
+        System.out.println("Задачи:");
+        for (Task task : getListTask()) {
+            System.out.println(task);
+        }
+        System.out.println("Эпики:");
+        for (Epic epic : getListEpics()) {
+            System.out.println(epic);
+
+            for (Integer id : epic.getSubtasksID()) {
+                System.out.println("--> " + getByIDSubtasks(id));
+            }
+        }
+        System.out.println("Подзадачи:");
+        for (Task subtask : getListTask()) {
+            System.out.println(subtask);
+        }
+
+        System.out.println("История:");
+        for (Task task : history.getHistory()) {
+            System.out.println(task);
+        }
+    }
+
+
+
+
 
 
 

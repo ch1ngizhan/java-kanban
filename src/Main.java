@@ -1,9 +1,8 @@
 public class Main {
 
     public static void main(String[] args) {
-
         System.out.println("Поехали!");
-        InMemoryTaskManager mngr = new InMemoryTaskManager();
+        TaskManager mngr = Managers.getDefault();
 
         /*mngr.createTask(new Task("Выспаться","Лечь спать в 23:00",Status.NEW));
 
@@ -78,14 +77,24 @@ public class Main {
         System.out.println(mngr.getListSubtasks());
         System.out.println();*/
 
-        mngr.createEpic(new Epic("Успеть лечь в 23:00","Будет тяжело, но ты справишься."));
+       /* mngr.createEpic(new Epic("Успеть лечь в 23:00","Будет тяжело, но ты справишься."));
         mngr.createSubtask(new Subtask("Домашнии дела", "Постараться решить 50% домашних дел.",
                 Status.NEW,1));
         mngr.createSubtask(new Subtask("Зал", "Заглянуть в зал на часик.",
                 Status.DONE,1));
-        System.out.println(mngr.getListEpics());
-        mngr.deleteAllSubtasks();
-        System.out.println(mngr.getListEpics());
+        mngr.createTask(new Task("Выспаться","Лечь спать в 00:00",Status.NEW ));
+        mngr.printAllTasks();*/
+
+       Task task = new Task("Выспаться","Лечь спать в 00:00",Status.NEW );
+        task.setId(2);
+        mngr.createTask(task);
+        System.out.println(task.getId());
+                mngr.getByIDTask(1);
+
+        System.out.println(task.getId());
+
+
+
 
 
     }

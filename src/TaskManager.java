@@ -39,5 +39,5 @@ public interface TaskManager {
 
     ArrayList<Subtask> getSubtaskForEpic(int epicID);
 
-    ArrayList<Task> getHistory();
+    void printAllTasks();
 }

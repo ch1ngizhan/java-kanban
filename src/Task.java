@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Task {
     protected String title;
     protected String description;//описание
@@ -54,5 +56,17 @@ public class Task {
                 "\nОписание:" + description ;
 
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return id == task.id ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, status, id);
     }
 }
