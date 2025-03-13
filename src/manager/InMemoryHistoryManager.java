@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private final taskLinkedList<Task> history;
+    private final TaskLinkedList<Task> history;
     private final Map<Integer, Node<Task>> historyMap;
 
     public InMemoryHistoryManager() {
-        history = new taskLinkedList<>();
+        history = new TaskLinkedList<>();
         historyMap = new HashMap<>();
     }
 
@@ -60,40 +60,4 @@ public class InMemoryHistoryManager implements HistoryManager {
 }
 
 
-class taskLinkedList<T> {
-    public Node<T> head;
-    public Node<T> tail;
 
-
-    taskLinkedList() {
-        head = null;
-        tail = null;
-    }
-
-    Node<T> linkLast(T data) {
-        Node<T> newNode = new Node<>(data);
-        if (head == null) {
-            head = newNode;
-            tail = newNode;
-
-        } else {
-            tail.next = newNode;
-            newNode.prev = tail;
-            tail = newNode;
-
-
-        }
-        return newNode;
-    }
-
-    List<T> getTasks() {
-        Node<T> task = head;
-        List<T> result = new ArrayList<>();
-        while (task != null) {
-            result.add(task.data);
-            task = task.next;
-        }
-        return result;
-
-    }
-}
