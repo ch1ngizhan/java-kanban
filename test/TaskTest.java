@@ -1,4 +1,3 @@
-package manager.test;
 
 import manager.HistoryManager;
 import manager.Managers;
