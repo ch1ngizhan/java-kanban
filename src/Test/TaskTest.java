@@ -1,5 +1,4 @@
-
-import static org.junit.jupiter.api.Assertions.*;
+package Test;
 
 import manager.HistoryManager;
 import manager.Managers;
@@ -10,8 +9,9 @@ import model.Subtask;
 import model.Task;
 import org.junit.Test;
 
-
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TaskTest {
@@ -37,39 +37,39 @@ public class TaskTest {
     }
 
     @Test
-    public void testTaskEqualityById () {
+    public void testTaskEqualityById() {
         Task task1 = new Task("Test addNewTask", "Test addNewTask description", Status.NEW);
         Task task2 = new Task("Test addNewTask", "Test addNewTask description", Status.DONE);
         task1.setId(1);
         task2.setId(1);
 
-        assertEquals(task1,task2);
+        assertEquals(task1, task2);
     }
 
     @Test
-    public void testEpicEqualityById () {
+    public void testEpicEqualityById() {
         Epic task1 = new Epic("Test addNewTask1", "Test addNewTask1 description");
         Epic task2 = new Epic("Test addNewTask2", "Test addNewTask2 description");
         task1.setId(1);
         task2.setId(1);
 
-        assertEquals(task1,task2);
+        assertEquals(task1, task2);
     }
 
     @Test
-    public void testSubtaskEqualityById () {
+    public void testSubtaskEqualityById() {
         Subtask task1 = new Subtask("Test addNewTask", "Test addNewTask description",
-                Status.NEW,1);
+                Status.NEW, 1);
         Subtask task2 = new Subtask("Test addNewTask", "Test addNewTask description",
-                Status.NEW,2);
+                Status.NEW, 2);
         task1.setId(1);
         task2.setId(1);
 
-        assertEquals(task1,task2);
+        assertEquals(task1, task2);
     }
 
     @Test
-    public void testManagersReturnInitializedInstances(){
+    public void testManagersReturnInitializedInstances() {
         TaskManager taskManager = Managers.getDefault();
         HistoryManager historyManager = Managers.getDefaultHistory();
 
@@ -85,18 +85,18 @@ public class TaskTest {
         Epic epic = new Epic("Test addNewTask1", "Test addNewTask1 description");
         taskManager.createEpic(epic);
         Subtask subtask = new Subtask("Test addNewTask", "Test addNewTask description",
-                Status.NEW,2);
+                Status.NEW, 2);
         taskManager.createSubtask(subtask);
 
-        assertEquals(task,taskManager.getByIDTask(task.getId()));
-        assertEquals(epic,taskManager.getByIDEpics(epic.getId()));
-        assertEquals(subtask,taskManager.getByIDSubtasks(subtask.getId()));
+        assertEquals(task, taskManager.getByIDTask(task.getId()));
+        assertEquals(epic, taskManager.getByIDEpics(epic.getId()));
+        assertEquals(subtask, taskManager.getByIDSubtasks(subtask.getId()));
 
 
     }
 
     @Test
-    public void testTaskIdConflict (){
+    public void testTaskIdConflict() {
         TaskManager taskManager = Managers.getDefault();
         Task task1 = new Task("model.Task 1", "Description 1", Status.NEW);
         Task task2 = new Task("model.Task 2", "Description 2", Status.NEW);
@@ -105,7 +105,7 @@ public class TaskTest {
         taskManager.createTask(task2);
         task1.setId(3);
 
-        assertNotEquals(task1.getId(),task2.getId());
+        assertNotEquals(task1.getId(), task2.getId());
     }
 
     @Test
@@ -120,6 +120,7 @@ public class TaskTest {
         assertEquals(task1.getDescription(), task2.getDescription());
         assertEquals(task1.getStatus(), task2.getStatus());
     }
+
     @Test
     public void add() {
         Task task = new Task("model.Task 1", "Description 1", Status.NEW);
@@ -130,3 +131,5 @@ public class TaskTest {
         assertEquals(1, history.size(), "История не пустая.");
     }
 }
+
+
