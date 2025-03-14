@@ -46,21 +46,6 @@ public class InMemoryHistoryManagerTest {
     }
 
     @Test
-    void testHistoryLimit() {
-        HistoryManager historyManager = Managers.getDefaultHistory();
-        for (int i = 1; i <= 11; i++) {
-            Task task = new Task("Task " + i, "Description " + i, Status.NEW);
-            task.setId(i);
-            historyManager.add(task);
-        }
-
-        List<Task> history = historyManager.getHistory();
-        assertEquals(10, history.size(), "История должна содержать не более 10 задач.");
-        assertFalse(history.contains(new Task("Task 1", "Description 1", Status.NEW)),
-                "Первая задача должна быть удалена из истории.");
-    }
-
-    @Test
     void testRemoveNode() {
         HistoryManager historyManager = Managers.getDefaultHistory();
         Task task1 = new Task("Task 1", "Description 1", Status.NEW);

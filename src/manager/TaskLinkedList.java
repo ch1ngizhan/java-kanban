@@ -1,5 +1,7 @@
 package manager;
 
+import model.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +21,10 @@ public class TaskLinkedList<T> {
         if (head == null) {
             head = newNode;
             tail = newNode;
-
         } else {
             tail.next = newNode;
             newNode.prev = tail;
             tail = newNode;
-
-
         }
         return newNode;
     }
@@ -39,5 +38,22 @@ public class TaskLinkedList<T> {
         }
         return result;
 
+    }
+
+     void removeNode(Node<T> node) {
+        if (node == null) {
+            return;
+        }
+        if (node.prev != null) {
+            node.prev.next = node.next;
+        } else {
+            head = node.next;
+        }
+
+        if (node.next != null) {
+            node.next.prev = node.prev;
+        } else {
+            tail = node.prev;
+        }
     }
 }
