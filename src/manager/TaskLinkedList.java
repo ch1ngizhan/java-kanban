@@ -1,7 +1,5 @@
 package manager;
 
-import model.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +38,7 @@ public class TaskLinkedList<T> {
 
     }
 
-     void removeNode(Node<T> node) {
+    void removeNode(Node<T> node) {
         if (node == null) {
             return;
         }

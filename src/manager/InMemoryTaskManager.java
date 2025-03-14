@@ -11,12 +11,11 @@ import java.util.List;
 import java.util.Map;
 
 public class InMemoryTaskManager implements TaskManager {
-    private int counter;
-
     private final Map<Integer, Task> tasks;
     private final Map<Integer, Epic> epics;
     private final Map<Integer, Subtask> subtasks;
     HistoryManager history;
+    private int counter;
 
 
     public InMemoryTaskManager() {
