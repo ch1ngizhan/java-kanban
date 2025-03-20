@@ -1,106 +1,72 @@
 import manager.Managers;
 import manager.TaskManager;
+import model.Epic;
 import model.Status;
+import model.Subtask;
 import model.Task;
 
+import java.util.List;
+
 public class Main {
-
     public static void main(String[] args) {
-        System.out.println("Поехали!");
-        TaskManager mngr = Managers.getDefault();
+        TaskManager taskManager = Managers.getDefault();
 
-        /*mngr.createTask(new model.Task("Выспаться","Лечь спать в 23:00",model.Status.NEW));
+        // Создаем две задачи
+        Task task1 = new Task("Task 1", "Description 1", Status.NEW);
+        Task task2 = new Task("Task 2", "Description 2", Status.NEW);
+        taskManager.createTask(task1);
+        taskManager.createTask(task2);
 
-        System.out.println("Создана задача 1:" + mngr.getByIDTask(1));
+        // Создаем эпик с тремя подзадачами
+        Epic epic1 = new Epic("Epic 1", "Description Epic 1");
+        taskManager.createEpic(epic1);
+        Subtask subtask1 = new Subtask("Subtask 1", "Description Subtask 1", Status.NEW, epic1.getId());
+        Subtask subtask2 = new Subtask("Subtask 2", "Description Subtask 2", Status.IN_PROGRESS, epic1.getId());
+        Subtask subtask3 = new Subtask("Subtask 3", "Description Subtask 3", Status.DONE, epic1.getId());
+        taskManager.createSubtask(subtask1);
+        taskManager.createSubtask(subtask2);
+        taskManager.createSubtask(subtask3);
 
-        mngr.createTask(new model.Task("Выспаться","Лечь спать в 00:00",model.Status.NEW ));
+        // Создаем эпик без подзадач
+        Epic epic2 = new Epic("Epic 2", "Description Epic 2");
+        taskManager.createEpic(epic2);
 
-        System.out.println("Создана задача 2:" + mngr.getByIDTask(2));
+        // Запрашиваем задачи несколько раз в разном порядке
+        taskManager.getByIDTask(task1.getId());
+        taskManager.getByIDEpics(epic1.getId());
+        taskManager.getByIDSubtasks(subtask1.getId());
+        taskManager.getByIDTask(task2.getId());
+        taskManager.getByIDEpics(epic2.getId());
+        taskManager.getByIDSubtasks(subtask2.getId());
+        taskManager.getByIDTask(task1.getId()); // Повторный запрос
 
-        mngr.createEpic(new model.Epic("Успеть лечь в 23:00","Будет тяжело, но ты справишься."));
+        // Выводим историю после запросов
+        System.out.println("История после запросов:");
+        printHistory(taskManager.getHistory());
 
-        System.out.println(mngr.getByIDEpics(3));
+        // Удаляем задачу, которая есть в истории
+        taskManager.deleteTask(task1.getId());
 
-        mngr.createSubtask(new model.Subtask("Зал", "Заглянуть в зал на часик.",
-                model.Status.NEW,3));
+        // Выводим историю после удаления задачи
+        System.out.println("\nИстория после удаления задачи:");
+        printHistory(taskManager.getHistory());
 
-        System.out.println(mngr.getByIDSubtasks(4));
+        // Удаляем эпик с тремя подзадачами
+        taskManager.deleteEpic(epic1.getId());
 
-        mngr.createSubtask(new model.Subtask("Домашнии дела", "Постараться решить 50% домашних дел.",
-                model.Status.NEW,3));
+        // Выводим историю после удаления эпика
+        System.out.println("\nИстория после удаления эпика:");
+        printHistory(taskManager.getHistory());
+    }
 
-        System.out.println(mngr.getByIDSubtasks(5));
-
-        mngr.createEpic(new model.Epic("Успеть лечь в 00:00","Будет невероятно тяжело ,но ты справишься."));
-        System.out.println(mngr.getByIDEpics(6));
-
-        mngr.createSubtask(new model.Subtask("Осознание", "Кого ты обманываешь.",model.Status.NEW
-                ,6));
-
-        System.out.println(mngr.getByIDSubtasks(7));
-
-        System.out.println("Список задач:");
-        mngr.getListTask();
-        System.out.println();
-
-        System.out.println("Список эпиков:");
-        mngr.getListEpics();
-        System.out.println();
-
-        System.out.println("Список подклассов:");
-        mngr.getListSubtasks();
-        System.out.println();
-
-        mngr.updateTask(1,new model.Task("Выспаться","Лечь спать в 23:00",model.Status.DONE ));
-        mngr.updateSubtask(4,new model.Subtask("Зал", "Заглянуть в зал на часик.",model.Status.DONE,3));
-        mngr.updateSubtask(7,new model.Subtask("Осознание", "Кого ты обманываешь.",model.Status.DONE,6));
-
-
-        System.out.println("Создана задача 1:" + mngr.getByIDTask(1));
-
-
-        System.out.println(mngr.getByIDEpics(3));
-
-        System.out.println(mngr.getByIDSubtasks(4));
-
-        System.out.println(mngr.getByIDEpics(6));
-
-        System.out.println(mngr.getByIDSubtasks(7));
-
-        mngr.deleteTask(2);
-        mngr.deleteEpic(6);
-
-        System.out.println("Список задач:");
-        System.out.println(mngr.getListTask());
-        System.out.println();
-
-        System.out.println("Список эпиков:");
-        System.out.println(mngr.getListEpics());
-        System.out.println();
-
-        System.out.println("Список подклассов:");
-        System.out.println(mngr.getListSubtasks());
-        System.out.println();*/
-
-       /* mngr.createEpic(new model.Epic("Успеть лечь в 23:00","Будет тяжело, но ты справишься."));
-        mngr.createSubtask(new model.Subtask("Домашнии дела", "Постараться решить 50% домашних дел.",
-                model.Status.NEW,1));
-        mngr.createSubtask(new model.Subtask("Зал", "Заглянуть в зал на часик.",
-                model.Status.DONE,1));
-        mngr.createTask(new model.Task("Выспаться","Лечь спать в 00:00",model.Status.NEW ));
-        mngr.printAllTasks();*/
-
-       Task task = new Task("Выспаться","Лечь спать в 00:00", Status.NEW );
-        task.setId(2);
-        mngr.createTask(task);
-        System.out.println(task.getId());
-                mngr.getByIDTask(1);
-
-        System.out.println(task.getId());
-
-
-
-
-
+    // Вспомогательный метод для вывода истории
+    private static void printHistory(List<Task> history) {
+        if (history.isEmpty()) {
+            System.out.println("История пуста.");
+        } else {
+            for (Task task : history) {
+                System.out.println(task);
+            }
+        }
     }
 }

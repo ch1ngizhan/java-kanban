@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 
 public class Epic extends Task {
-    private ArrayList<Integer>subtasksID;
+    private ArrayList<Integer> subtasksID;
 
     public Epic(String title, String description) {
         super(title, description, Status.NEW);
@@ -25,16 +25,16 @@ public class Epic extends Task {
     }
 
 
-    public void deleteAllSubtaskID(){
+    public void deleteAllSubtaskID() {
         subtasksID.clear();
     }
 
     @Override
     public String toString() {
-        return "\nЭпик: " + getTitle()+
+        return "\nЭпик: " + getTitle() +
                 "\nID:" + getId() +
-                "\nКол-во подзадач :"+ subtasksID.size() +
+                "\nКол-во подзадач :" + subtasksID.size() +
                 "\nСтатус: " + getStatus() +
-                "\nОписание:" + getDescription() ;
+                "\nОписание:" + getDescription();
     }
 }

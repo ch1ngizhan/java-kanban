@@ -6,9 +6,9 @@ public class Task {
     protected String title;
     protected String description;//описание
     protected Status status;
-    protected int id ;
+    protected int id;
 
-    public Task(String title, String description,Status status) {
+    public Task(String title, String description, Status status) {
         this.title = title;
         this.description = description;
         this.status = status;
@@ -52,10 +52,10 @@ public class Task {
 
     @Override
     public String toString() {
-        return "\nЗадача: " + title+
+        return "\nЗадача: " + title +
                 "\nID:" + id +
                 "\nСтатус: " + status +
-                "\nОписание:" + description ;
+                "\nОписание:" + description;
 
 
     }
@@ -64,7 +64,7 @@ public class Task {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id ;
+        return id == task.id;
     }
 
     @Override
