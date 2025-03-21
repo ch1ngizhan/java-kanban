@@ -5,10 +5,11 @@ import model.Status;
 import model.Subtask;
 import model.Task;
 
+import java.io.IOException;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         TaskManager taskManager = Managers.getDefault();
 
         // Создаем две задачи
@@ -57,7 +58,9 @@ public class Main {
         // Выводим историю после удаления эпика
         System.out.println("\nИстория после удаления эпика:");
         printHistory(taskManager.getHistory());
+
     }
+
 
     // Вспомогательный метод для вывода истории
     private static void printHistory(List<Task> history) {

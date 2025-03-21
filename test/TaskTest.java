@@ -8,6 +8,7 @@ import model.Subtask;
 import model.Task;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,7 +18,7 @@ public class TaskTest {
 
 
     @Test
-    public void addNewTask() {
+    public void addNewTask() throws IOException {
         TaskManager taskManager = Managers.getDefault();
         Task task = new Task("Test addNewTask", "Test addNewTask description", Status.NEW);
         taskManager.createTask(task);
@@ -77,7 +78,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testTaskManagerAddAndFindTasks() {
+    public void testTaskManagerAddAndFindTasks() throws IOException {
         TaskManager taskManager = Managers.getDefault();
         Task task = new Task("Test addNewTask", "Test addNewTask description", Status.NEW);
         taskManager.createTask(task);
@@ -95,7 +96,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testTaskIdConflict() {
+    public void testTaskIdConflict() throws IOException {
         TaskManager taskManager = Managers.getDefault();
         Task task1 = new Task("model.Task 1", "Description 1", Status.NEW);
         Task task2 = new Task("model.Task 2", "Description 2", Status.NEW);
@@ -108,7 +109,7 @@ public class TaskTest {
     }
 
     @Test
-    public void testTaskImmutabilityWhenAdded() {
+    public void testTaskImmutabilityWhenAdded() throws IOException {
         TaskManager taskManager = Managers.getDefault();
 
         Task task1 = new Task("model.Task 1", "Description 1", Status.NEW);
