@@ -5,7 +5,6 @@ import model.Status;
 import model.Subtask;
 import model.Task;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -113,7 +112,7 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     @Override
-    public void createTask(Task task){
+    public void createTask(Task task) {
         task.setId(generateId());
         tasks.put(task.getId(), task);
 
@@ -121,7 +120,7 @@ public class InMemoryTaskManager implements TaskManager {
 
 
     @Override
-    public void createSubtask(Subtask  subtask) {
+    public void createSubtask(Subtask subtask) {
         if (epics.containsKey(subtask.getEpicID())) {
             subtask.setId(generateId());
             subtasks.put(subtask.getId(), subtask);
@@ -132,7 +131,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public void createEpic(Epic epic){
+    public void createEpic(Epic epic) {
         epic.setId(generateId());
         epics.put(epic.getId(), epic);
     }

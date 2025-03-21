@@ -21,8 +21,9 @@ public class Subtask extends Task {
     public int getEpicID() {
         return epicID;
     }
-    public void setEpicID(int epicID){
-        this.epicID =epicID;
+
+    public void setEpicID(int epicID) {
+        this.epicID = epicID;
     }
 
     @Override
@@ -33,8 +34,9 @@ public class Subtask extends Task {
                 "\nСтатус: " + getStatus() +
                 "\nОписание:" + getDescription();
     }
+
     @Override
-    public String formatString (){
-        return String.format("%s,%S,%s,%s,%s,%s",id,type,title,status,description,epicID);
+    public String formatString() {
+        return String.format("%s,%S,%s,%s,%s,%s", id, type, title, status, description, epicID);
     }
 }

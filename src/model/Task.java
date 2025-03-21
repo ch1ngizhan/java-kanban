@@ -56,7 +56,7 @@ public class Task {
         return type;
     }
 
-    public void setType(Type type){
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -92,10 +92,9 @@ public class Task {
     }
 
 
+    public String formatString() {
+        return String.format("%s,%S,%s,%s,%s", id, type, title, status, description);
+    }
 
-    public String formatString (){
-       return String.format("%s,%S,%s,%s,%s",id,type,title,status,description);
-   }
 
-    
 }
