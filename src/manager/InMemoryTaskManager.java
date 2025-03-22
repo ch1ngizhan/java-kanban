@@ -30,6 +30,10 @@ public class InMemoryTaskManager implements TaskManager {
         return counter++;
     }
 
+    protected int getCounter() {
+        return counter;
+    }
+
     protected void setCounter(int counter) {
         this.counter = counter;
     }

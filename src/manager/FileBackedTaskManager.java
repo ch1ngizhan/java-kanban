@@ -73,7 +73,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
 
     public static void main(String[] args) throws IOException {
         File file = new File("tasks.csv");
-        FileBackedTaskManager manager = new FileBackedTaskManager(file);
 
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(file);
 
@@ -87,6 +86,7 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         for (Subtask subtask : loadedManager.getListSubtasks()) {
             System.out.println(subtask);
         }
+        System.out.println(loadedManager.getCounter());
 
     }
 
@@ -106,11 +106,6 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
     public void createSubtask(Subtask subtask) {
         super.createSubtask(subtask);
         save();
-    }
-
-    @Override
-    protected void setCounter(int counter) {
-        super.setCounter(counter);
     }
 
     @Override
