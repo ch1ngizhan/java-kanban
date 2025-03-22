@@ -22,8 +22,7 @@ class FileBackedTaskManagerTest {
 
     @Test
     void testSaveAndLoadEmptyFile() throws IOException {
-        // Сохраняем пустой менеджер
-        manager.save();
+
 
         // Загружаем из файла
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
@@ -44,8 +43,6 @@ class FileBackedTaskManagerTest {
         Subtask subtask1 = new Subtask("Subtask 1", "Description Subtask 1",Status.NEW, epic1.getId());
         manager.createSubtask(subtask1);
 
-        // Сохраняем менеджер
-        manager.save();
 
         // Загружаем из файла
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
@@ -78,9 +75,6 @@ class FileBackedTaskManagerTest {
         task1.setStatus(Status.DONE);
         manager.updateTask(task1.getId(),task1);
 
-        // Сохраняем менеджер
-        manager.save();
-
         // Загружаем из файла
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);
 
@@ -99,8 +93,7 @@ class FileBackedTaskManagerTest {
         // Удаляем задачу
         manager.deleteTask(task1.getId());
 
-        // Сохраняем менеджер
-        manager.save();
+
 
         // Загружаем из файла
         FileBackedTaskManager loadedManager = FileBackedTaskManager.loadFromFile(tempFile);

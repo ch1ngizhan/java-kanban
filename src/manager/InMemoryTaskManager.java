@@ -30,6 +30,32 @@ public class InMemoryTaskManager implements TaskManager {
         return counter++;
     }
 
+    protected void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+
+    protected void addTask(Task task) {
+        tasks.put(task.getId(), task);
+        counter++;
+    }
+
+
+    protected void addSubtask(Subtask subtask) {
+        if (epics.containsKey(subtask.getEpicID())) {
+            subtasks.put(subtask.getId(), subtask);
+            epics.get(subtask.getEpicID()).addSubtaskID(subtask.getId());
+            updateEpicStatus(subtask.getEpicID());
+        }
+        counter++;
+    }
+
+
+    protected void addEpic(Epic epic) {
+        epics.put(epic.getId(), epic);
+        counter++;
+    }
+
     @Override
     public ArrayList<Task> getListTask() {
         return new ArrayList<>(tasks.values());
