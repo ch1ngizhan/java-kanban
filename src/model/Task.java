@@ -2,6 +2,8 @@ package model;
 
 import manager.Type;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -10,20 +12,22 @@ public class Task {
     protected Status status;
     protected int id;
     protected Type type;
+    protected Duration duration;
+    protected LocalDateTime startTime;
 
-    public Task(String title, String description, Status status) {
+    public Task(String title, String description, Status status, LocalDateTime startTime, Duration duration) {
         this.title = title;
         this.description = description;
         this.status = status;
         this.type = Type.TASK;
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
-    public Task(String title, String description, Status status, int id) {
-        this.title = title;
-        this.description = description;
-        this.status = status;
+    public Task(String title, String description, Status status, int id,
+                LocalDateTime startTime, Duration duration) {
+        this(title, description, status, startTime, duration);
         this.id = id;
-        this.type = Type.TASK;
     }
 
 

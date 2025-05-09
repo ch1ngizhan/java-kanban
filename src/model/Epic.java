@@ -2,20 +2,22 @@ package model;
 
 import manager.Type;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
 public class Epic extends Task {
     private final ArrayList<Integer> subtasksID;
+    private LocalDateTime endTime;
 
     public Epic(String title, String description) {
-        super(title, description, Status.NEW);
+        super(title, description, Status.NEW,null,null);
         this.subtasksID = new ArrayList<>();
         this.type = Type.EPIC;
     }
 
     public Epic(String title, String description, Status status, int id) {
-        super(title, description, status, id);
+        super(title, description, status, id,null,null);
         this.subtasksID = new ArrayList<>();
         this.type = Type.EPIC;
 
