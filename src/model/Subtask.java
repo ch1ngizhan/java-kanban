@@ -10,14 +10,14 @@ public class Subtask extends Task {
 
     public Subtask(String title, String description, Status status, int epicID, LocalDateTime startTime,
                    Duration duration) {
-        super(title, description, status,startTime,duration);
+        super(title, description, status, startTime, duration);
         this.epicID = epicID;
         this.type = Type.SUBTASK;
     }
 
-    public Subtask(String title, String description, Status status, int id, int epicID,LocalDateTime startTime,
+    public Subtask(String title, String description, Status status, int id, int epicID, LocalDateTime startTime,
                    Duration duration) {
-        super(title, description, status, id,startTime,duration);
+        super(title, description, status, id, startTime, duration);
         this.epicID = epicID;
         this.type = Type.SUBTASK;
     }
@@ -37,11 +37,10 @@ public class Subtask extends Task {
                 "\nEpicID:" + getEpicID() +
                 "\nID:" + getId() +
                 "\nСтатус: " + getStatus() +
-                "\nОписание:" + getDescription();
+                "\nОписание:" + getDescription() +
+                "\nНачало: " + startTime.toString() +
+                "\nПродолжительность: " + duration.toMinutes() + " минут" +
+                "\nОкончание: " + getEndTime().toString();
     }
 
-    @Override
-    public String formatString() {
-        return String.format("%s,%S,%s,%s,%s,%s", id, type, title, status, description, epicID);
-    }
 }
