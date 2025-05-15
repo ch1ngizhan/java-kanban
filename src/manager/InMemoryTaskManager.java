@@ -344,11 +344,11 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     public boolean hasTimeIntersections(Task newTask) {
-        if (newTask == null || newTask.getStartTime() == null){
+        if (newTask == null || newTask.getStartTime() == null) {
             return false;
         }
         return prioritizedTasks.stream()
-                .filter(task -> task.getId()!=newTask.getId())
+                .filter(task -> task.getId() != newTask.getId())
                 .filter(task -> !task.equals(newTask))
                 .anyMatch(task -> isTasksIntersect(task, newTask));
     }
