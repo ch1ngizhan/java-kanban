@@ -13,17 +13,17 @@ public class Main {
         TaskManager taskManager = Managers.getDefault();
 
         // Создаем две задачи
-        Task task1 = new Task("Task 1", "Description 1", Status.NEW);
-        Task task2 = new Task("Task 2", "Description 2", Status.NEW);
+        Task task1 = new Task("Task 1", "Description 1", Status.NEW, null, null);
+        Task task2 = new Task("Task 2", "Description 2", Status.NEW, null, null);
         taskManager.createTask(task1);
         taskManager.createTask(task2);
 
         // Создаем эпик с тремя подзадачами
         Epic epic1 = new Epic("Epic 1", "Description Epic 1");
         taskManager.createEpic(epic1);
-        Subtask subtask1 = new Subtask("Subtask 1", "Description Subtask 1", Status.NEW, epic1.getId());
-        Subtask subtask2 = new Subtask("Subtask 2", "Description Subtask 2", Status.IN_PROGRESS, epic1.getId());
-        Subtask subtask3 = new Subtask("Subtask 3", "Description Subtask 3", Status.DONE, epic1.getId());
+        Subtask subtask1 = new Subtask("Subtask 1", "Description Subtask 1", Status.NEW, epic1.getId(), null, null);
+        Subtask subtask2 = new Subtask("Subtask 2", "Description Subtask 2", Status.IN_PROGRESS, epic1.getId(), null, null);
+        Subtask subtask3 = new Subtask("Subtask 3", "Description Subtask 3", Status.DONE, epic1.getId(), null, null);
         taskManager.createSubtask(subtask1);
         taskManager.createSubtask(subtask2);
         taskManager.createSubtask(subtask3);

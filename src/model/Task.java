@@ -2,6 +2,8 @@ package model;
 
 import manager.Type;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Task {
@@ -10,20 +12,22 @@ public class Task {
     protected Status status;
     protected int id;
     protected Type type;
+    protected Duration duration;
+    protected LocalDateTime startTime;
 
-    public Task(String title, String description, Status status) {
+    public Task(String title, String description, Status status, LocalDateTime startTime, Duration duration) {
         this.title = title;
         this.description = description;
         this.status = status;
         this.type = Type.TASK;
+        this.startTime = startTime;
+        this.duration = duration;
     }
 
-    public Task(String title, String description, Status status, int id) {
-        this.title = title;
-        this.description = description;
-        this.status = status;
+    public Task(String title, String description, Status status, int id,
+                LocalDateTime startTime, Duration duration) {
+        this(title, description, status, startTime, duration);
         this.id = id;
-        this.type = Type.TASK;
     }
 
 
@@ -64,8 +68,32 @@ public class Task {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+
+    public LocalDateTime getEndTime() {
+        if (startTime == null || duration == null) {
+            return null;
+        }
+        return startTime.plus(duration);
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
 
@@ -74,7 +102,10 @@ public class Task {
         return "\nЗадача: " + title +
                 "\nID:" + id +
                 "\nСтатус: " + status +
-                "\nОписание:" + description;
+                "\nОписание:" + description +
+                "\nНачало: " + startTime.toString() +
+                "\nПродолжительность: " + duration.toMinutes() + " минут" +
+                "\nОкончание: " + getEndTime().toString();
 
 
     }
@@ -88,13 +119,23 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, status, id);
+        return Objects.hash(title, description, status, id, type, duration, startTime);
     }
 
 
     public String formatString() {
-        return String.format("%s,%S,%s,%s,%s", id, type, title, status, description);
+        if (this instanceof Subtask) {
+            Subtask subtask = (Subtask) this;
+            return String.format("%s,%s,%s,%s,%s,%s,%s,%s",
+                    id, type, title, status, description,
+                    (startTime != null) ? startTime.toString() : "null",
+                    (duration != null) ? duration.toMinutes() : "null",
+                    subtask.getEpicID());
+        } else {
+            return String.format("%s,%s,%s,%s,%s,%s,%s",
+                    id, type, title, status, description,
+                    (startTime != null) ? startTime.toString() : "null",
+                    (duration != null) ? duration.toMinutes() : "null");
+        }
     }
-
-
 }

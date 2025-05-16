@@ -1,69 +1,77 @@
-
-
 import manager.HistoryManager;
-import manager.Managers;
+import manager.InMemoryHistoryManager;
 import model.Status;
 import model.Task;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+class InMemoryHistoryManagerTest {
+    private HistoryManager historyManager;
 
-public class InMemoryHistoryManagerTest {
-    @Test
-    void testAddToHistory() {
-        HistoryManager historyManager = Managers.getDefaultHistory();
-        Task task1 = new Task("Task 1", "Description 1", Status.NEW);
-        Task task2 = new Task("Task 2", "Description 2", Status.NEW);
-        task1.setId(1);
-        task2.setId(2);
-        historyManager.add(task1);
-        historyManager.add(task2);
-
-        List<Task> history = historyManager.getHistory();
-        assertEquals(2, history.size(), "История должна содержать 2 задачи.");
-        assertEquals(task1, history.get(0), "Первая задача в истории не совпадает.");
-        assertEquals(task2, history.get(1), "Вторая задача в истории не совпадает.");
+    @BeforeEach
+    void setUp() {
+        historyManager = new InMemoryHistoryManager();
     }
 
     @Test
-    void testRemoveFromHistory() {
-        HistoryManager historyManager = Managers.getDefaultHistory();
-        Task task1 = new Task("Task 1", "Description 1", Status.NEW);
-        Task task2 = new Task("Task 2", "Description 2", Status.NEW);
-        task1.setId(1);
-        task2.setId(2);
-        historyManager.add(task1);
-        historyManager.add(task2);
+    void add_ShouldAddTaskToHistory() {
+        Task task = new Task("Test", "Description", Status.NEW, LocalDateTime.now(), Duration.ofMinutes(10));
+        task.setId(1);
 
-        historyManager.remove(task1.getId());
-
+        historyManager.add(task);
         List<Task> history = historyManager.getHistory();
-        assertEquals(1, history.size(), "История должна содержать 1 задачу после удаления.");
-        assertEquals(task2, history.get(0), "Оставшаяся задача в истории не совпадает.");
+
+        assertEquals(1, history.size());
+        assertEquals(task, history.get(0));
     }
 
     @Test
-    void testRemoveNode() {
-        HistoryManager historyManager = Managers.getDefaultHistory();
-        Task task1 = new Task("Task 1", "Description 1", Status.NEW);
-        Task task2 = new Task("Task 2", "Description 2", Status.NEW);
-        Task task3 = new Task("Task 3", "Description 3", Status.NEW);
+    void add_ShouldNotContainDuplicates() {
+        Task task = new Task("Test", "Description", Status.NEW, LocalDateTime.now(), Duration.ofMinutes(10));
+        task.setId(1);
+
+        historyManager.add(task);
+        historyManager.add(task);
+        List<Task> history = historyManager.getHistory();
+
+        assertEquals(1, history.size());
+    }
+
+    @Test
+    void remove_ShouldRemoveTaskFromHistory() {
+        Task task1 = new Task("Task1", "Desc1", Status.NEW, LocalDateTime.now(), Duration.ofMinutes(10));
+        Task task2 = new Task("Task2", "Desc2", Status.NEW, LocalDateTime.now(), Duration.ofMinutes(20));
         task1.setId(1);
         task2.setId(2);
-        task3.setId(3);
+
         historyManager.add(task1);
         historyManager.add(task2);
-        historyManager.add(task3);
-
-        historyManager.remove(task2.getId());
+        historyManager.remove(1);
 
         List<Task> history = historyManager.getHistory();
-        assertEquals(2, history.size(), "История должна содержать 2 задачи после удаления.");
-        assertEquals(task1, history.get(0), "Первая задача в истории не совпадает.");
-        assertEquals(task3, history.get(1), "Третья задача в истории не совпадает.");
+        assertEquals(1, history.size());
+        assertEquals(task2, history.get(0));
+    }
+
+    @Test
+    void getHistory_ShouldReturnEmptyListForEmptyHistory() {
+        List<Task> history = historyManager.getHistory();
+        assertTrue(history.isEmpty());
+    }
+
+    @Test
+    void remove_ShouldHandleNonExistentId() {
+        Task task = new Task("Test", "Description", Status.NEW, LocalDateTime.now(), Duration.ofMinutes(10));
+        task.setId(1);
+
+        historyManager.add(task);
+        historyManager.remove(999); // Несуществующий ID
+
+        assertEquals(1, historyManager.getHistory().size());
     }
 }
-

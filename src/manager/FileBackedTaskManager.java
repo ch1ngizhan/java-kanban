@@ -8,6 +8,8 @@ import model.Task;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,14 +60,18 @@ public class FileBackedTaskManager extends InMemoryTaskManager {
         String name = parts[2].trim();
         Status status = Status.valueOf(parts[3].trim());
         String description = parts[4].trim();
+        LocalDateTime startTime = !"null".equals(parts[5].trim()) ?
+                LocalDateTime.parse(parts[5].trim()) : null;
+        Duration duration = !"null".equals(parts[6].trim()) ?
+                Duration.ofMinutes(Long.parseLong(parts[6].trim())) : null;
         switch (type) {
             case TASK:
-                return new Task(name, description, status, id);
+                return new Task(name, description, status, id, startTime, duration);
             case EPIC:
                 return new Epic(name, description, status, id);
             case SUBTASK:
-                int epicId = Integer.parseInt(parts[5]);
-                return new Subtask(name, description, status, id, epicId);
+                int epicId = Integer.parseInt(parts[7]);
+                return new Subtask(name, description, status, id, epicId, startTime, duration);
             default:
                 throw new IllegalArgumentException("Неизвестный тип задачи");
         }
