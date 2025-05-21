@@ -48,14 +48,18 @@ public class EpicHandler extends BaseHttpHandler {
                     break;
 
                 case "POST":
-                    handleCreateEpic(exchange);
-                    break;
+                    if (path.equals("/epics")) {
+                        handleCreateEpic(exchange);
 
+                    } else if (path.startsWith("/epics/")) {
+                        handleUpdateEpic(exchange);
+                    }
+                    break;
                 case "DELETE":
                     handleDeleteEpic(exchange);
                     break;
                 default:
-                    sendText(exchange, "Указан не коректный метод!", 405);
+                    sendText(exchange, "Указан не корректный метод!", 405);
             }
         } catch (Exception e) {
             sendText(exchange, "Internal Server Error", 500);
@@ -98,13 +102,26 @@ public class EpicHandler extends BaseHttpHandler {
         Epic epic = gson.fromJson(body, Epic.class);
 
         taskManager.createEpic(epic);
-        sendText(exchange, "Задача создана.", 201);
+        sendText(exchange, "Задача создана. ID:" + epic.getId(), 201);
+    }
+
+    private void handleUpdateEpic(HttpExchange exchange) throws IOException {
+
+        String[] parts = exchange.getRequestURI().getPath().split("/");
+        int id = (int) Long.parseLong(parts[2]);
+        InputStream requestBody = exchange.getRequestBody();
+        String body = new String(requestBody.readAllBytes(), StandardCharsets.UTF_8);
+        Epic epic = gson.fromJson(body, Epic.class);
+
+        taskManager.updateEpic(id, epic.getTitle(), epic.getDescription());
+        sendText(exchange, "Задача обновлена.");
+
     }
 
     private void handleDeleteEpic(HttpExchange exchange) throws IOException {
         String[] parts = exchange.getRequestURI().getPath().split("/");
         int id = (int) Long.parseLong(parts[2]);
         taskManager.deleteEpic(id);
-        sendText(exchange, "Задача удалина.");
+        sendText(exchange, "Задача удалена.");
     }
 }

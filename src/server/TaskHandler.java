@@ -108,7 +108,7 @@ public class TaskHandler extends BaseHttpHandler {
             return;
         }
         taskManager.createTask(task);
-        sendText(exchange, "Задача создана.", 201);
+        sendText(exchange, "Задача создана. ID:" + task.getId(), 201);
     }
 
     private void handleUpdateTask(HttpExchange exchange) throws IOException {
@@ -131,7 +131,7 @@ public class TaskHandler extends BaseHttpHandler {
         String[] parts = exchange.getRequestURI().getPath().split("/");
         int id = (int) Long.parseLong(parts[2]);
         taskManager.deleteTask(id);
-        sendText(exchange, "Задача удалина.");
+        sendText(exchange, "Задача удалена.");
     }
 }
 

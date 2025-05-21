@@ -99,7 +99,7 @@ public class SubtaskHandler extends BaseHttpHandler {
             return;
         }
         taskManager.createSubtask(subtask);
-        sendText(exchange, "Задача создана.", 201);
+        sendText(exchange, "Задача создана. ID:" + subtask.getId(), 201);
     }
 
     private void handleUpdateSubtask(HttpExchange exchange) throws IOException {
@@ -120,6 +120,6 @@ public class SubtaskHandler extends BaseHttpHandler {
         String[] parts = exchange.getRequestURI().getPath().split("/");
         int id = (int) Long.parseLong(parts[2]);
         taskManager.deleteSubtask(id);
-        sendText(exchange, "Задача удалина.");
+        sendText(exchange, "Задача удалена.");
     }
 }

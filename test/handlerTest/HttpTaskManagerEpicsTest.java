@@ -26,6 +26,27 @@ class HttpTaskManagerEpicsTest extends HttpTaskManagerTestBase {
     }
 
     @Test
+    void testUpdateTask() throws Exception {
+        // Создаем задачу
+        Epic epic = new Epic("Original", "Desc");
+        manager.createEpic(epic);
+        int epicId = epic.getId();
+
+        // Подготавливаем обновленные данные
+        Epic updatedEpic = new Epic("Updated", "New desc");
+        updatedEpic.setId(epicId);
+        String updatedJson = gson.toJson(updatedEpic);
+
+        // Отправляем запрос на обновление
+        HttpResponse<String> response = sendPostRequest("/epics/" + epicId, updatedJson);
+
+        // Проверки
+        assertEquals(200, response.statusCode(), "Неверный статус код");
+        Epic taskFromManager = manager.getByIDEpics(epicId);
+        assertEquals("Updated", taskFromManager.getTitle(), "Название не обновилось");
+    }
+
+    @Test
     void testGetEpicSubtasks() throws Exception {
         // Создаем эпик и подзадачи
         Epic epic = new Epic("Epic with subtasks", "");

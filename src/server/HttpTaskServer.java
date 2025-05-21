@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpServer;
 import manager.Managers;
 import manager.TaskManager;
+import model.Epic;
 import model.Status;
 import model.Task;
 
@@ -36,6 +37,8 @@ public class HttpTaskServer {
         TaskManager taskManager = Managers.getDefault();
         HttpTaskServer server = new HttpTaskServer(taskManager);
         server.start();
+        taskManager.createTask(new Task("Original", "Desc", Status.NEW,
+                LocalDateTime.now(), Duration.ofMinutes(30)));
         HttpResponse<String> response = server.request();
         System.out.println(response.statusCode());
         System.out.println(response.body());
@@ -66,13 +69,12 @@ public class HttpTaskServer {
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .registerTypeAdapter(Duration.class, new DurationAdapter())
                 .create();
-        Task task = new Task("Test task", "Description", Status.NEW,
-                LocalDateTime.now(), Duration.ofMinutes(30));
+        Epic task = new Epic("Test task", "Description");
         String taskJson = gson.toJson(task);
 
         // Отправка запроса
 
-        URI url = URI.create(baseUrl + "/tasks");
+        URI url = URI.create(baseUrl + "/epics");
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(url)
                 .POST(HttpRequest.BodyPublishers.ofString(taskJson))
