@@ -51,4 +51,6 @@ public interface TaskManager {
 
     List<Task> getPrioritizedTasks();
 
+
+    boolean hasTimeIntersections(Task t);
 }
